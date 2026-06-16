@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { formatBDT } from "@/lib/money";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Locale } from "@/i18n/routing";
@@ -11,9 +12,10 @@ export interface ProductCardData {
   basePrice: number;
   comparePrice: number | null;
   images: { url: string; alt: string | null }[];
+  _count: { variants: number };
 }
 
-export function ProductCard({
+export async function ProductCard({
   product,
   locale,
 }: {
@@ -21,7 +23,10 @@ export function ProductCard({
   locale: Locale;
 }) {
   const isBn = locale === "bn";
+  const t = await getTranslations("Catalog");
   const image = product.images[0];
+  const multi = product._count.variants > 1;
+  const price = formatBDT(product.basePrice, { locale });
 
   return (
     <Link href={`/product/${product.slug}`}>
@@ -43,7 +48,7 @@ export function ProductCard({
           </h3>
           <div className="mt-2 flex items-baseline gap-2">
             <span className="font-semibold">
-              {formatBDT(product.basePrice, { locale })}
+              {multi ? t("fromPrice", { price }) : price}
             </span>
             {product.comparePrice && (
               <span className="text-xs text-muted-foreground line-through">
@@ -51,6 +56,11 @@ export function ProductCard({
               </span>
             )}
           </div>
+          {multi && (
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {t("sizeCount", { count: product._count.variants })}
+            </p>
+          )}
         </CardContent>
       </Card>
     </Link>

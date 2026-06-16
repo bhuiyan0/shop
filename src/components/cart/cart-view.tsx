@@ -8,20 +8,10 @@ import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 import { formatBDT } from "@/lib/money";
 import { setCartItemQuantity, removeCartItem } from "@/lib/cart-actions";
+import type { CartLineView } from "@/lib/cart";
 import type { Locale } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-
-export interface CartLineView {
-  id: string;
-  slug: string;
-  name: string;
-  variantName: string;
-  unitPrice: number;
-  quantity: number;
-  stock: number;
-  image: { url: string; alt: string } | null;
-}
 
 export function CartView({ lines }: { lines: CartLineView[] }) {
   const locale = useLocale() as Locale;

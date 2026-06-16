@@ -1,41 +1,46 @@
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@/lib/dal";
-import { getCart, cartCount } from "@/lib/cart";
+import { getCart, cartCount, toCartLineViews } from "@/lib/cart";
 import { Role } from "@/generated/prisma/enums";
 import { LogoutButton } from "@/components/auth/logout-button";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
+import { SearchBox } from "@/components/search/search-box";
+import { CategoryNav } from "@/components/category/category-nav";
+import { MobileCategoryDrawer } from "@/components/category/mobile-category-drawer";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 import { Button } from "@/components/ui/button";
 
 export async function Header() {
-  const [user, cart, tCommon, tNav] = await Promise.all([
+  const [user, cart, locale, tCommon, tNav] = await Promise.all([
     getCurrentUser(),
     getCart(),
+    getLocale(),
     getTranslations("Common"),
     getTranslations("Nav"),
   ]);
   const count = cartCount(cart);
+  const cartLines = toCartLineViews(cart, locale === "bn");
 
   return (
     <header className="border-b">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <Link href="/" className="text-lg font-bold">
-          {tCommon("appName")}
-        </Link>
+        <div className="flex items-center gap-1">
+          <MobileCategoryDrawer>
+            <CategoryNav />
+          </MobileCategoryDrawer>
+          <Link href="/" className="shrink-0 text-lg font-bold">
+            {tCommon("appName")}
+          </Link>
+        </div>
+
+        <div className="hidden flex-1 justify-center px-2 sm:flex">
+          <SearchBox />
+        </div>
 
         <nav className="flex items-center gap-2">
           <LocaleSwitcher />
-          <Button asChild variant="ghost" size="sm" className="relative">
-            <Link href="/cart" aria-label={tCommon("cart")}>
-              <ShoppingCart className="size-5" />
-              {count > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-primary text-[10px] font-semibold text-primary-foreground">
-                  {count}
-                </span>
-              )}
-            </Link>
-          </Button>
+          <CartDrawer lines={cartLines} count={count} />
           {user ? (
             <>
               {user.role === Role.ADMIN && (

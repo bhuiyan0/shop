@@ -1,7 +1,7 @@
 {
   "Common": {
     "appName": "BDShop",
-    "tagline": "Shop smart, pay your way",
+    "tagline": "Fresh groceries, delivered",
     "search": "Search products...",
     "addToCart": "Add to Cart",
     "buyNow": "Buy Now",
@@ -51,7 +51,12 @@
   },
   "Home": {
     "featured": "Featured Products",
-    "shopByCategory": "Shop by Category"
+    "shopByCategory": "Shop by Category",
+    "heroTitle": "Fresh groceries, delivered to your door",
+    "heroSubtitle": "Daily essentials at honest prices — rice, oil, spices, snacks and more, with Cash on Delivery across Bangladesh.",
+    "shopNow": "Shop now",
+    "deals": "Deals",
+    "popular": "Popular this week"
   },
   "Product": {
     "description": "Description",
@@ -67,10 +72,49 @@
       "notFound": "This item is no longer available.",
       "outOfStock": "This option is out of stock.",
       "stockLimited": "Limited stock — quantity adjusted."
+    },
+    "writeReview": "Write a review",
+    "editReview": "Your review",
+    "yourRating": "Your rating",
+    "comment": "Comment",
+    "commentPlaceholder": "Share your experience (optional)",
+    "submitReview": "Submit review",
+    "updateReview": "Update review",
+    "deleteReview": "Delete",
+    "reviewSubmitted": "Thanks for your review!",
+    "reviewUpdated": "Your review was updated.",
+    "reviewDeleted": "Your review was removed.",
+    "loginToReview": "Log in to write a review",
+    "onlyBuyers": "Only customers who bought this product can review it.",
+    "reviewError": {
+      "invalid": "Please choose a rating from 1 to 5.",
+      "notPurchased": "You can only review products you've purchased."
     }
   },
   "Catalog": {
-    "noProducts": "No products in this category yet."
+    "noProducts": "No products in this category yet.",
+    "fromPrice": "From {price}",
+    "sizeCount": "{count, plural, one {# size} other {# sizes}}"
+  },
+  "Search": {
+    "title": "Search",
+    "resultsFor": "Results for “{q}”",
+    "results": "{count, plural, =0 {No products} one {# product} other {# products}}",
+    "noResults": "No products match your filters.",
+    "category": "Category",
+    "allCategories": "All categories",
+    "sort": "Sort by",
+    "sortNew": "Newest",
+    "sortPriceAsc": "Price: low to high",
+    "sortPriceDesc": "Price: high to low",
+    "priceRange": "Price",
+    "min": "Min",
+    "max": "Max",
+    "inStock": "In stock only",
+    "clear": "Clear",
+    "prev": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {total}"
   },
   "Cart": {
     "title": "Your Cart",
@@ -79,7 +123,8 @@
     "summary": "Summary",
     "subtotal": "Subtotal",
     "shippingNote": "Shipping calculated at checkout.",
-    "checkout": "Proceed to checkout",
+    "checkout": "Checkout",
+    "viewCart": "View cart",
     "remove": "Remove",
     "updateFailed": "Could not update the cart."
   },
