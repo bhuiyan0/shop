@@ -39,7 +39,9 @@ export function ProductPurchase({ variants }: { variants: PurchaseVariant[] }) {
     startTransition(async () => {
       const res = await addToCart(selected.id, qty);
       if (!res.ok) {
-        toast.error(tc("addToCart"), { description: t(`cartError.${res.error}`) });
+        toast.error(tc("addToCart"), {
+          description: t(`cartError.${res.error}`),
+        });
         return;
       }
       toast.success(tc("addToCart"), { description: t("addedToCart") });

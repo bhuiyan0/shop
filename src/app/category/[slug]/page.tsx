@@ -33,7 +33,9 @@ export default async function CategoryPage({
   const products = await prisma.product.findMany({
     where: {
       published: true,
-      ...(isParent ? { category: { parentId: category.id } } : { categoryId: category.id }),
+      ...(isParent
+        ? { category: { parentId: category.id } }
+        : { categoryId: category.id }),
     },
     orderBy: { createdAt: "desc" },
     include: {
@@ -55,11 +57,16 @@ export default async function CategoryPage({
         <div className="min-w-0">
           {/* Breadcrumb */}
           <nav className="mb-2 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
-            <Link href="/" className="hover:underline">{tNav("home")}</Link>
+            <Link href="/" className="hover:underline">
+              {tNav("home")}
+            </Link>
             {category.parent && (
               <>
                 <span>/</span>
-                <Link href={`/category/${category.parent.slug}`} className="hover:underline">
+                <Link
+                  href={`/category/${category.parent.slug}`}
+                  className="hover:underline"
+                >
                   {name(category.parent)}
                 </Link>
               </>
@@ -74,13 +81,25 @@ export default async function CategoryPage({
           {isParent && (
             <div className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-5">
               {category.children.map((c) => (
-                <Link key={c.id} href={`/category/${c.slug}`} className="group flex flex-col items-center gap-2">
+                <Link
+                  key={c.id}
+                  href={`/category/${c.slug}`}
+                  className="group flex flex-col items-center gap-2"
+                >
                   <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-muted ring-1 ring-border transition-shadow group-hover:shadow-md">
                     {c.image && (
-                      <Image src={c.image} alt={name(c)} fill sizes="(max-width:768px) 30vw, 16vw" className="object-cover" />
+                      <Image
+                        src={c.image}
+                        alt={name(c)}
+                        fill
+                        sizes="(max-width:768px) 30vw, 16vw"
+                        className="object-cover"
+                      />
                     )}
                   </div>
-                  <span className="text-center text-xs font-medium">{name(c)}</span>
+                  <span className="text-center text-xs font-medium">
+                    {name(c)}
+                  </span>
                 </Link>
               ))}
             </div>
@@ -88,7 +107,9 @@ export default async function CategoryPage({
 
           {/* Products */}
           {products.length === 0 ? (
-            <p className="mt-10 text-sm text-muted-foreground">{t("noProducts")}</p>
+            <p className="mt-10 text-sm text-muted-foreground">
+              {t("noProducts")}
+            </p>
           ) : (
             <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {products.map((p) => (

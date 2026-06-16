@@ -63,65 +63,68 @@ export default async function HomePage() {
         </aside>
 
         <div className="min-w-0 space-y-12">
-        {/* Categories grouped by parent — mobile only (desktop uses the sidebar) */}
-        <section className="space-y-8 md:hidden">
-          <h2 className="text-xl font-semibold">{t("shopByCategory")}</h2>
-          {categories.map((parent) => (
-            <div key={parent.id}>
-              <h3 className="mb-3 text-sm font-semibold">
-                <Link href={`/category/${parent.slug}`} className="hover:underline">
-                  {isBn ? parent.nameBn : parent.nameEn}
-                </Link>
-              </h3>
-              <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
-                {parent.children.map((c) => (
+          {/* Categories grouped by parent — mobile only (desktop uses the sidebar) */}
+          <section className="space-y-8 md:hidden">
+            <h2 className="text-xl font-semibold">{t("shopByCategory")}</h2>
+            {categories.map((parent) => (
+              <div key={parent.id}>
+                <h3 className="mb-3 text-sm font-semibold">
                   <Link
-                    key={c.id}
-                    href={`/category/${c.slug}`}
-                    className="group flex flex-col items-center gap-2"
+                    href={`/category/${parent.slug}`}
+                    className="hover:underline"
                   >
-                    <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-muted ring-1 ring-border transition-shadow group-hover:shadow-md">
-                      {c.image && (
-                        <Image
-                          src={c.image}
-                          alt={isBn ? c.nameBn : c.nameEn}
-                          fill
-                          sizes="(max-width: 768px) 30vw, 16vw"
-                          className="object-cover"
-                        />
-                      )}
-                    </div>
-                    <span className="text-center text-xs font-medium">
-                      {isBn ? c.nameBn : c.nameEn}
-                    </span>
+                    {isBn ? parent.nameBn : parent.nameEn}
                   </Link>
+                </h3>
+                <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
+                  {parent.children.map((c) => (
+                    <Link
+                      key={c.id}
+                      href={`/category/${c.slug}`}
+                      className="group flex flex-col items-center gap-2"
+                    >
+                      <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-muted ring-1 ring-border transition-shadow group-hover:shadow-md">
+                        {c.image && (
+                          <Image
+                            src={c.image}
+                            alt={isBn ? c.nameBn : c.nameEn}
+                            fill
+                            sizes="(max-width: 768px) 30vw, 16vw"
+                            className="object-cover"
+                          />
+                        )}
+                      </div>
+                      <span className="text-center text-xs font-medium">
+                        {isBn ? c.nameBn : c.nameEn}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+
+          {/* Deals */}
+          {deals.length > 0 && (
+            <section>
+              <h2 className="mb-4 text-xl font-semibold">{t("deals")}</h2>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                {deals.map((p) => (
+                  <ProductCard key={p.id} product={p} locale={locale} />
                 ))}
               </div>
-            </div>
-          ))}
-        </section>
+            </section>
+          )}
 
-        {/* Deals */}
-        {deals.length > 0 && (
+          {/* Popular */}
           <section>
-            <h2 className="mb-4 text-xl font-semibold">{t("deals")}</h2>
+            <h2 className="mb-4 text-xl font-semibold">{t("popular")}</h2>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-              {deals.map((p) => (
+              {popular.map((p) => (
                 <ProductCard key={p.id} product={p} locale={locale} />
               ))}
             </div>
           </section>
-        )}
-
-        {/* Popular */}
-        <section>
-          <h2 className="mb-4 text-xl font-semibold">{t("popular")}</h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {popular.map((p) => (
-              <ProductCard key={p.id} product={p} locale={locale} />
-            ))}
-          </div>
-        </section>
         </div>
       </div>
     </main>

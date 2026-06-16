@@ -13,7 +13,6 @@ export default async function AdminOrderPage({
   const { orderNumber } = await params;
   const locale = (await getLocale()) as Locale;
   const isBn = locale === "bn";
-  const t = await getTranslations("Admin");
   const to = await getTranslations("Orders");
 
   const order = await prisma.order.findUnique({
@@ -43,7 +42,9 @@ export default async function AdminOrderPage({
               <li key={item.id} className="flex justify-between gap-4">
                 <span>
                   {isBn ? item.nameBn : item.nameEn}{" "}
-                  <span className="text-muted-foreground">× {item.quantity}</span>
+                  <span className="text-muted-foreground">
+                    × {item.quantity}
+                  </span>
                 </span>
                 <span className="shrink-0">
                   {formatBDT(item.unitPrice * item.quantity, { locale })}
@@ -53,10 +54,19 @@ export default async function AdminOrderPage({
           </ul>
           <Separator className="my-4" />
           <dl className="space-y-1 text-sm">
-            <Row label={to("subtotal")} value={formatBDT(order.subtotal, { locale })} />
-            <Row label={to("shipping")} value={formatBDT(order.shippingFee, { locale })} />
+            <Row
+              label={to("subtotal")}
+              value={formatBDT(order.subtotal, { locale })}
+            />
+            <Row
+              label={to("shipping")}
+              value={formatBDT(order.shippingFee, { locale })}
+            />
             {order.discount > 0 && (
-              <Row label={to("discount")} value={`− ${formatBDT(order.discount, { locale })}`} />
+              <Row
+                label={to("discount")}
+                value={`− ${formatBDT(order.discount, { locale })}`}
+              />
             )}
             <div className="flex justify-between pt-2 text-base font-semibold">
               <dt>{to("total")}</dt>
@@ -74,7 +84,9 @@ export default async function AdminOrderPage({
             />
             <p className="mt-3 text-xs text-muted-foreground">
               {to("payment")}:{" "}
-              {order.payment?.method === "COD" ? to("cod") : order.payment?.method}{" "}
+              {order.payment?.method === "COD"
+                ? to("cod")
+                : order.payment?.method}{" "}
               ({order.payment?.status})
             </p>
           </div>

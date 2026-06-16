@@ -17,16 +17,11 @@ export const metadata: Metadata = {
     "Fresh groceries and daily essentials — rice, oil, spices, snacks and more — with Cash on Delivery, bKash and Nagad across Bangladesh.",
 };
 
-export default async function RootLayout({
-  children,
-}: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
   const locale = await getLocale();
 
   return (
-    <html
-      lang={locale}
-      className={`${inter.variable} h-full antialiased`}
-    >
+    <html lang={locale} className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
           <Header />

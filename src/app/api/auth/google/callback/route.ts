@@ -43,7 +43,8 @@ export async function GET(req: NextRequest) {
     );
     claims = decodeIdToken(tokens.idToken()) as GoogleClaims;
   } catch (e) {
-    if (e instanceof OAuth2RequestError) return errorRedirect(req, "oauth_code");
+    if (e instanceof OAuth2RequestError)
+      return errorRedirect(req, "oauth_code");
     throw e;
   }
 

@@ -61,8 +61,14 @@ export default async function OrderPage({
         <Separator className="my-5" />
 
         <dl className="space-y-1 text-sm">
-          <Row label={t("subtotal")} value={formatBDT(order.subtotal, { locale })} />
-          <Row label={t("shipping")} value={formatBDT(order.shippingFee, { locale })} />
+          <Row
+            label={t("subtotal")}
+            value={formatBDT(order.subtotal, { locale })}
+          />
+          <Row
+            label={t("shipping")}
+            value={formatBDT(order.shippingFee, { locale })}
+          />
           {order.discount > 0 && (
             <Row
               label={t("discount")}
@@ -79,7 +85,9 @@ export default async function OrderPage({
 
         <div className="text-sm text-muted-foreground">
           <p className="font-medium text-foreground">{t("deliverTo")}</p>
-          <p>{order.customerName} · {order.customerPhone}</p>
+          <p>
+            {order.customerName} · {order.customerPhone}
+          </p>
           <p>
             {order.addressLine}, {order.area}, {order.city}, {order.district}
           </p>

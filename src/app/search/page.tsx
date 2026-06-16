@@ -117,7 +117,12 @@ export default async function SearchPage({
           <span className="text-sm text-muted-foreground">
             {t("pageOf", { page, total: totalPages })}
           </span>
-          <Button asChild variant="outline" size="sm" disabled={page >= totalPages}>
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            disabled={page >= totalPages}
+          >
             <Link href={pageHref(page + 1)} aria-disabled={page >= totalPages}>
               {t("next")}
             </Link>

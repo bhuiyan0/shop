@@ -47,8 +47,13 @@ export async function submitReview(input: {
   }
 
   await prisma.review.upsert({
-    where: { productId_userId: { productId: input.productId, userId: user.id } },
-    update: { rating: parsed.data.rating, comment: parsed.data.comment || null },
+    where: {
+      productId_userId: { productId: input.productId, userId: user.id },
+    },
+    update: {
+      rating: parsed.data.rating,
+      comment: parsed.data.comment || null,
+    },
     create: {
       productId: input.productId,
       userId: user.id,

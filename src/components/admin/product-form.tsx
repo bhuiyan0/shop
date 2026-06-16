@@ -89,7 +89,9 @@ export function ProductForm({
         descriptionEn: form.descriptionEn,
         descriptionBn: form.descriptionBn,
         basePriceTk: Number(form.basePriceTk),
-        comparePriceTk: form.comparePriceTk ? Number(form.comparePriceTk) : null,
+        comparePriceTk: form.comparePriceTk
+          ? Number(form.comparePriceTk)
+          : null,
         categoryId: form.categoryId,
         published: form.published,
         variants: form.variants.map((v) => ({
@@ -135,13 +137,23 @@ export function ProductForm({
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label={t("nameEn")}>
-          <Input value={form.nameEn} onChange={(e) => set("nameEn", e.target.value)} />
+          <Input
+            value={form.nameEn}
+            onChange={(e) => set("nameEn", e.target.value)}
+          />
         </Field>
         <Field label={t("nameBn")}>
-          <Input value={form.nameBn} onChange={(e) => set("nameBn", e.target.value)} />
+          <Input
+            value={form.nameBn}
+            onChange={(e) => set("nameBn", e.target.value)}
+          />
         </Field>
         <Field label={t("slug")}>
-          <Input value={form.slug} onChange={(e) => set("slug", e.target.value)} placeholder="my-product" />
+          <Input
+            value={form.slug}
+            onChange={(e) => set("slug", e.target.value)}
+            placeholder="my-product"
+          />
         </Field>
         <Field label={t("category")}>
           <select
@@ -160,16 +172,36 @@ export function ProductForm({
           </select>
         </Field>
         <Field label={t("basePrice")}>
-          <Input type="number" min={0} value={form.basePriceTk} onChange={(e) => set("basePriceTk", e.target.value)} />
+          <Input
+            type="number"
+            min={0}
+            value={form.basePriceTk}
+            onChange={(e) => set("basePriceTk", e.target.value)}
+          />
         </Field>
         <Field label={t("comparePrice")}>
-          <Input type="number" min={0} value={form.comparePriceTk} onChange={(e) => set("comparePriceTk", e.target.value)} />
+          <Input
+            type="number"
+            min={0}
+            value={form.comparePriceTk}
+            onChange={(e) => set("comparePriceTk", e.target.value)}
+          />
         </Field>
         <Field label={t("descriptionEn")}>
-          <textarea className={textarea} rows={3} value={form.descriptionEn} onChange={(e) => set("descriptionEn", e.target.value)} />
+          <textarea
+            className={textarea}
+            rows={3}
+            value={form.descriptionEn}
+            onChange={(e) => set("descriptionEn", e.target.value)}
+          />
         </Field>
         <Field label={t("descriptionBn")}>
-          <textarea className={textarea} rows={3} value={form.descriptionBn} onChange={(e) => set("descriptionBn", e.target.value)} />
+          <textarea
+            className={textarea}
+            rows={3}
+            value={form.descriptionBn}
+            onChange={(e) => set("descriptionBn", e.target.value)}
+          />
         </Field>
       </div>
 
@@ -188,24 +220,68 @@ export function ProductForm({
       <section className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold">{t("variants")}</h2>
-          <Button type="button" variant="outline" size="sm" onClick={() => set("variants", [...form.variants, emptyVariant()])}>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => set("variants", [...form.variants, emptyVariant()])}
+          >
             <Plus className="size-4" /> {t("addVariant")}
           </Button>
         </div>
         <div className="space-y-2">
           {form.variants.map((v, i) => (
-            <div key={i} className="grid grid-cols-[1fr_1fr_1fr_5rem_4rem_auto] items-end gap-2">
-              <MiniField label="SKU"><Input value={v.sku} onChange={(e) => updateVariant(i, { sku: e.target.value })} /></MiniField>
-              <MiniField label={t("nameEn")}><Input value={v.nameEn} onChange={(e) => updateVariant(i, { nameEn: e.target.value })} /></MiniField>
-              <MiniField label={t("nameBn")}><Input value={v.nameBn} onChange={(e) => updateVariant(i, { nameBn: e.target.value })} /></MiniField>
-              <MiniField label={t("priceTk")}><Input type="number" min={0} value={v.priceTk} onChange={(e) => updateVariant(i, { priceTk: e.target.value })} /></MiniField>
-              <MiniField label={t("stock")}><Input type="number" min={0} value={v.stock} onChange={(e) => updateVariant(i, { stock: e.target.value })} /></MiniField>
+            <div
+              key={i}
+              className="grid grid-cols-[1fr_1fr_1fr_5rem_4rem_auto] items-end gap-2"
+            >
+              <MiniField label="SKU">
+                <Input
+                  value={v.sku}
+                  onChange={(e) => updateVariant(i, { sku: e.target.value })}
+                />
+              </MiniField>
+              <MiniField label={t("nameEn")}>
+                <Input
+                  value={v.nameEn}
+                  onChange={(e) => updateVariant(i, { nameEn: e.target.value })}
+                />
+              </MiniField>
+              <MiniField label={t("nameBn")}>
+                <Input
+                  value={v.nameBn}
+                  onChange={(e) => updateVariant(i, { nameBn: e.target.value })}
+                />
+              </MiniField>
+              <MiniField label={t("priceTk")}>
+                <Input
+                  type="number"
+                  min={0}
+                  value={v.priceTk}
+                  onChange={(e) =>
+                    updateVariant(i, { priceTk: e.target.value })
+                  }
+                />
+              </MiniField>
+              <MiniField label={t("stock")}>
+                <Input
+                  type="number"
+                  min={0}
+                  value={v.stock}
+                  onChange={(e) => updateVariant(i, { stock: e.target.value })}
+                />
+              </MiniField>
               <Button
                 type="button"
                 variant="ghost"
                 size="sm"
                 disabled={form.variants.length <= 1}
-                onClick={() => set("variants", form.variants.filter((_, idx) => idx !== i))}
+                onClick={() =>
+                  set(
+                    "variants",
+                    form.variants.filter((_, idx) => idx !== i),
+                  )
+                }
               >
                 <Trash2 className="size-4" />
               </Button>
@@ -220,16 +296,47 @@ export function ProductForm({
       <section className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold">{t("images")}</h2>
-          <Button type="button" variant="outline" size="sm" onClick={() => set("images", [...form.images, { url: "", alt: "" }])}>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() =>
+              set("images", [...form.images, { url: "", alt: "" }])
+            }
+          >
             <Plus className="size-4" /> {t("addImage")}
           </Button>
         </div>
         <div className="space-y-2">
           {form.images.map((im, i) => (
-            <div key={i} className="grid grid-cols-[2fr_1fr_auto] items-end gap-2">
-              <MiniField label={t("imageUrl")}><Input value={im.url} onChange={(e) => updateImage(i, { url: e.target.value })} placeholder="https://…" /></MiniField>
-              <MiniField label={t("imageAlt")}><Input value={im.alt} onChange={(e) => updateImage(i, { alt: e.target.value })} /></MiniField>
-              <Button type="button" variant="ghost" size="sm" onClick={() => set("images", form.images.filter((_, idx) => idx !== i))}>
+            <div
+              key={i}
+              className="grid grid-cols-[2fr_1fr_auto] items-end gap-2"
+            >
+              <MiniField label={t("imageUrl")}>
+                <Input
+                  value={im.url}
+                  onChange={(e) => updateImage(i, { url: e.target.value })}
+                  placeholder="https://…"
+                />
+              </MiniField>
+              <MiniField label={t("imageAlt")}>
+                <Input
+                  value={im.alt}
+                  onChange={(e) => updateImage(i, { alt: e.target.value })}
+                />
+              </MiniField>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() =>
+                  set(
+                    "images",
+                    form.images.filter((_, idx) => idx !== i),
+                  )
+                }
+              >
                 <Trash2 className="size-4" />
               </Button>
             </div>
@@ -244,7 +351,12 @@ export function ProductForm({
           {t("save")}
         </Button>
         {form.id && (
-          <Button type="button" variant="destructive" onClick={onDelete} disabled={deleting}>
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={onDelete}
+            disabled={deleting}
+          >
             {t("delete")}
           </Button>
         )}
@@ -253,7 +365,13 @@ export function ProductForm({
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="space-y-2">
       <Label>{label}</Label>
@@ -262,7 +380,13 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-function MiniField({ label, children }: { label: string; children: React.ReactNode }) {
+function MiniField({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="space-y-1">
       <Label className="text-xs text-muted-foreground">{label}</Label>

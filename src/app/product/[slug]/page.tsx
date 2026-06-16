@@ -57,7 +57,10 @@ export default async function ProductPage({
   return (
     <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
       <nav className="mb-4 text-sm text-muted-foreground">
-        <Link href={`/category/${product.category.slug}`} className="hover:underline">
+        <Link
+          href={`/category/${product.category.slug}`}
+          className="hover:underline"
+        >
           {isBn ? product.category.nameBn : product.category.nameEn}
         </Link>
       </nav>
@@ -116,7 +119,7 @@ export default async function ProductPage({
       {description && (
         <section className="mt-10 max-w-3xl">
           <h2 className="mb-2 text-lg font-semibold">{t("description")}</h2>
-          <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
+          <p className="text-sm leading-relaxed whitespace-pre-line text-muted-foreground">
             {description}
           </p>
         </section>
@@ -151,7 +154,9 @@ export default async function ProductPage({
                   </span>
                 </div>
                 {r.comment && (
-                  <p className="mt-2 text-sm text-muted-foreground">{r.comment}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {r.comment}
+                  </p>
                 )}
               </li>
             ))}

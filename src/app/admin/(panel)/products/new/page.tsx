@@ -8,7 +8,9 @@ export default async function NewProductPage() {
   const isBn = locale === "bn";
   const t = await getTranslations("Admin");
 
-  const categories = await prisma.category.findMany({ orderBy: { nameEn: "asc" } });
+  const categories = await prisma.category.findMany({
+    orderBy: { nameEn: "asc" },
+  });
 
   return (
     <div className="space-y-6">

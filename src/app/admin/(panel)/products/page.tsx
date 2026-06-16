@@ -60,9 +60,7 @@ export default async function AdminProductsPage() {
                     {t("inStock", { count: stock })}
                   </p>
                 </div>
-                {!p.published && (
-                  <Badge variant="outline">{t("draft")}</Badge>
-                )}
+                {!p.published && <Badge variant="outline">{t("draft")}</Badge>}
                 <span className="text-sm font-medium">
                   {formatBDT(p.basePrice, { locale })}
                 </span>

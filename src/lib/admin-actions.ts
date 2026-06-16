@@ -93,7 +93,9 @@ export async function saveProduct(input: ProductInput): Promise<ActionResult> {
           if (v.id) {
             await tx.productVariant.update({ where: { id: v.id }, data });
           } else {
-            await tx.productVariant.create({ data: { ...data, productId: id } });
+            await tx.productVariant.create({
+              data: { ...data, productId: id },
+            });
           }
         }
 

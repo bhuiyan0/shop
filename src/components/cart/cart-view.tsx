@@ -117,7 +117,9 @@ export function CartView({ lines }: { lines: CartLineView[] }) {
           <span className="text-muted-foreground">{t("subtotal")}</span>
           <span className="font-medium">{formatBDT(subtotal, { locale })}</span>
         </div>
-        <p className="mt-1 text-xs text-muted-foreground">{t("shippingNote")}</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {t("shippingNote")}
+        </p>
         <Button asChild size="lg" className="mt-4 w-full" disabled={pending}>
           <Link href="/checkout">{t("checkout")}</Link>
         </Button>

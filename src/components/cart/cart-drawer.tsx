@@ -51,17 +51,25 @@ export function CartDrawer({
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="sm" className="relative" aria-label={tc("cart")}>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="relative"
+          aria-label={tc("cart")}
+        >
           <ShoppingCart className="size-5" />
           {count > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 flex size-4 items-center justify-center rounded-full bg-primary text-[10px] font-semibold text-primary-foreground">
+            <span className="absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-primary text-[10px] font-semibold text-primary-foreground">
               {count}
             </span>
           )}
         </Button>
       </SheetTrigger>
 
-      <SheetContent side="right" className="flex w-full flex-col gap-0 p-0 sm:max-w-md">
+      <SheetContent
+        side="right"
+        className="flex w-full flex-col gap-0 p-0 sm:max-w-md"
+      >
         <SheetHeader className="border-b">
           <SheetTitle>
             {t("title")}
@@ -119,7 +127,9 @@ export function CartDrawer({
                           size="sm"
                           disabled={pending || line.quantity <= 1}
                           onClick={() =>
-                            mutate(() => setCartItemQuantity(line.id, line.quantity - 1))
+                            mutate(() =>
+                              setCartItemQuantity(line.id, line.quantity - 1),
+                            )
                           }
                         >
                           −
@@ -133,7 +143,9 @@ export function CartDrawer({
                           size="sm"
                           disabled={pending || line.quantity >= line.stock}
                           onClick={() =>
-                            mutate(() => setCartItemQuantity(line.id, line.quantity + 1))
+                            mutate(() =>
+                              setCartItemQuantity(line.id, line.quantity + 1),
+                            )
                           }
                         >
                           +
@@ -162,15 +174,28 @@ export function CartDrawer({
             <div className="border-t p-4">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">{t("subtotal")}</span>
-                <span className="font-medium">{formatBDT(subtotal, { locale })}</span>
+                <span className="font-medium">
+                  {formatBDT(subtotal, { locale })}
+                </span>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">{t("shippingNote")}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {t("shippingNote")}
+              </p>
               <Separator className="my-3" />
               <div className="flex gap-2">
-                <Button asChild variant="outline" className="flex-1" onClick={() => setOpen(false)}>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => setOpen(false)}
+                >
                   <Link href="/cart">{t("viewCart")}</Link>
                 </Button>
-                <Button asChild className="flex-1" onClick={() => setOpen(false)}>
+                <Button
+                  asChild
+                  className="flex-1"
+                  onClick={() => setOpen(false)}
+                >
                   <Link href="/checkout">{t("checkout")}</Link>
                 </Button>
               </div>

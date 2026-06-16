@@ -34,7 +34,11 @@ export function CustomerLogin({ oauthError }: { oauthError?: string }) {
       </div>
 
       <form action={action} className="space-y-4">
-        <input type="hidden" name="intent" value={onCodeStep ? "verify" : "request"} />
+        <input
+          type="hidden"
+          name="intent"
+          value={onCodeStep ? "verify" : "request"}
+        />
 
         <div className="space-y-2">
           <Label htmlFor="phone">{t("phoneLabel")}</Label>

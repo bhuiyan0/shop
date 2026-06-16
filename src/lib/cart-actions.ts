@@ -67,7 +67,9 @@ export async function setCartItemQuantity(
   return { ok: true };
 }
 
-export async function removeCartItem(itemId: string): Promise<CartActionResult> {
+export async function removeCartItem(
+  itemId: string,
+): Promise<CartActionResult> {
   const cart = await getCart();
   const line = cart?.items.find((i) => i.id === itemId);
   if (!cart || !line) return { ok: false, error: "notFound" };

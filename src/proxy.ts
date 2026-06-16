@@ -11,7 +11,9 @@ export default async function proxy(req: NextRequest) {
   // Protect every /admin route except the admin login page itself.
   if (pathname === "/admin" || pathname.startsWith("/admin/")) {
     if (pathname === "/admin/login") return NextResponse.next();
-    const session = await decryptSession(req.cookies.get(SESSION_COOKIE)?.value);
+    const session = await decryptSession(
+      req.cookies.get(SESSION_COOKIE)?.value,
+    );
     if (session?.role !== Role.ADMIN) {
       return NextResponse.redirect(new URL("/admin/login", req.nextUrl));
     }

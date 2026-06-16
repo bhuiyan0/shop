@@ -24,34 +24,39 @@ A bilingual (English / বাংলা) **online grocery store** for the Banglad
 
 ## 🧱 Tech stack
 
-| Area | Choice |
-|------|--------|
-| Framework | Next.js 16 (App Router, Turbopack), React 19 |
-| Language | TypeScript |
-| Database | PostgreSQL 16 + Prisma 7 (pg driver adapter) |
-| Styling | Tailwind CSS 4 + shadcn/ui, Inter font |
-| i18n | next-intl 4 (cookie-based, no routing) |
-| Auth | Custom `jose` JWT sessions + `arctic` (Google OAuth); scrypt password/OTP hashing |
-| Notifications | Sonner (toasts) |
+| Area          | Choice                                                                            |
+| ------------- | --------------------------------------------------------------------------------- |
+| Framework     | Next.js 16 (App Router, Turbopack), React 19                                      |
+| Language      | TypeScript                                                                        |
+| Database      | PostgreSQL 16 + Prisma 7 (pg driver adapter)                                      |
+| Styling       | Tailwind CSS 4 + shadcn/ui, Inter font                                            |
+| i18n          | next-intl 4 (cookie-based, no routing)                                            |
+| Auth          | Custom `jose` JWT sessions + `arctic` (Google OAuth); scrypt password/OTP hashing |
+| Notifications | Sonner (toasts)                                                                   |
 
 ---
 
 ## 🚀 Getting started
 
 ### Prerequisites
+
 - Node.js 20+
 - Docker (for the Postgres container)
 
 ### 1. Install dependencies
+
 ```bash
 npm install
 ```
 
 ### 2. Configure environment
+
 ```bash
 cp .env.example .env
 ```
+
 Then set at least:
+
 - `AUTH_SECRET` — sign the session JWT: `openssl rand -base64 32`
 - `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` — optional; needed only for Google login. Authorized redirect URI: `http://localhost:3000/api/auth/google/callback`
 - `SMS_API_*` — optional; without it, OTP codes are printed to the **server console** in dev
@@ -59,6 +64,7 @@ Then set at least:
 `DATABASE_URL` already points at the Docker Postgres (`postgresql://bdshop:bdshop@localhost:5432/bdshop`).
 
 ### 3. Start the database & seed it
+
 ```bash
 npm run db:up        # start Postgres (Docker)
 npm run db:migrate   # apply migrations
@@ -66,6 +72,7 @@ npm run db:seed      # load the grocery catalog (58 products, 19 categories)
 ```
 
 ### 4. Run the app
+
 ```bash
 npm run dev          # http://localhost:3000
 ```
@@ -76,16 +83,16 @@ npm run dev          # http://localhost:3000
 
 ## 📜 Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start the dev server (Turbopack) |
-| `npm run build` / `npm run start` | Production build / serve |
-| `npm run lint` | ESLint |
-| `npm run db:up` | Start the Postgres container |
-| `npm run db:migrate` | Apply Prisma migrations (dev) |
-| `npm run db:seed` | Seed the catalog, admin user, and coupons |
-| `npm run db:studio` | Open Prisma Studio (DB GUI) |
-| `npm run db:reset` | Drop, re-migrate, and reseed the dev DB |
+| Script                            | Description                               |
+| --------------------------------- | ----------------------------------------- |
+| `npm run dev`                     | Start the dev server (Turbopack)          |
+| `npm run build` / `npm run start` | Production build / serve                  |
+| `npm run lint`                    | ESLint                                    |
+| `npm run db:up`                   | Start the Postgres container              |
+| `npm run db:migrate`              | Apply Prisma migrations (dev)             |
+| `npm run db:seed`                 | Seed the catalog, admin user, and coupons |
+| `npm run db:studio`               | Open Prisma Studio (DB GUI)               |
+| `npm run db:reset`                | Drop, re-migrate, and reseed the dev DB   |
 
 ---
 
@@ -107,6 +114,7 @@ src/proxy.ts            # Next 16 "Proxy" (admin route gate)
 ```
 
 ### Conventions worth knowing
+
 - **Money** is integer **poisha** everywhere; format with `formatBDT()` (`src/lib/money.ts`).
 - **Locale** lives in the `NEXT_LOCALE` cookie (read server-side in `src/i18n/request.ts`); use plain `next/link` + `next/navigation` — there is no `[locale]` URL segment.
 - **Auth** is a custom layer (not NextAuth): stateless `jose` sessions in an httpOnly cookie; `requireUser()` / `requireAdmin()` in `src/lib/dal.ts`; `/admin` gated optimistically in `src/proxy.ts` and enforced in the admin layout.

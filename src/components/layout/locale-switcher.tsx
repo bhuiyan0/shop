@@ -17,6 +17,7 @@ export function LocaleSwitcher() {
   function setLocale(next: Locale) {
     if (next === active) return;
     // Persisted in the browser (no URL prefix) and readable during SSR.
+    // eslint-disable-next-line react-hooks/immutability -- DOM cookie write, not React state
     document.cookie = `${LOCALE_COOKIE}=${next};path=/;max-age=${ONE_YEAR};samesite=lax`;
     startTransition(() => router.refresh());
   }
@@ -30,7 +31,7 @@ export function LocaleSwitcher() {
           variant={loc === active ? "secondary" : "ghost"}
           size="sm"
           disabled={pending}
-          className="rounded-none first:rounded-l-md last:rounded-r-md px-2"
+          className="rounded-none px-2 first:rounded-l-md last:rounded-r-md"
           onClick={() => setLocale(loc)}
         >
           {loc === "en" ? t("english") : t("bangla")}

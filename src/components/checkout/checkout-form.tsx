@@ -56,12 +56,24 @@ export function CheckoutForm({
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="fullName">{t("fullName")}</Label>
-              <Input id="fullName" name="fullName" defaultValue={defaults.fullName} required />
+              <Input
+                id="fullName"
+                name="fullName"
+                defaultValue={defaults.fullName}
+                required
+              />
               {fieldError("fullName")}
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone">{t("phone")}</Label>
-              <Input id="phone" name="phone" type="tel" placeholder="01XXXXXXXXX" defaultValue={defaults.phone} required />
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="01XXXXXXXXX"
+                defaultValue={defaults.phone}
+                required
+              />
               {fieldError("phone")}
             </div>
             <div className="space-y-2">
@@ -77,17 +89,32 @@ export function CheckoutForm({
             </div>
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="addressLine">{t("address")}</Label>
-              <Input id="addressLine" name="addressLine" defaultValue={defaults.addressLine} required />
+              <Input
+                id="addressLine"
+                name="addressLine"
+                defaultValue={defaults.addressLine}
+                required
+              />
               {fieldError("addressLine")}
             </div>
             <div className="space-y-2">
               <Label htmlFor="area">{t("area")}</Label>
-              <Input id="area" name="area" defaultValue={defaults.area} required />
+              <Input
+                id="area"
+                name="area"
+                defaultValue={defaults.area}
+                required
+              />
               {fieldError("area")}
             </div>
             <div className="space-y-2">
               <Label htmlFor="city">{t("city")}</Label>
-              <Input id="city" name="city" defaultValue={defaults.city} required />
+              <Input
+                id="city"
+                name="city"
+                defaultValue={defaults.city}
+                required
+              />
               {fieldError("city")}
             </div>
           </div>
@@ -102,7 +129,9 @@ export function CheckoutForm({
           <label className="mt-2 flex cursor-not-allowed items-center gap-3 rounded-md border p-3 opacity-50">
             <input type="radio" name="payment" value="SSLCOMMERZ" disabled />
             <span className="text-sm">{t("online")}</span>
-            <span className="ml-auto text-xs text-muted-foreground">{t("comingSoon")}</span>
+            <span className="ml-auto text-xs text-muted-foreground">
+              {t("comingSoon")}
+            </span>
           </label>
         </div>
       </div>
@@ -137,7 +166,12 @@ export function CheckoutForm({
           </p>
         )}
 
-        <Button type="submit" size="lg" className="mt-4 w-full" disabled={pending}>
+        <Button
+          type="submit"
+          size="lg"
+          className="mt-4 w-full"
+          disabled={pending}
+        >
           {t("placeOrder")}
         </Button>
       </aside>

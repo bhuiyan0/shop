@@ -30,7 +30,9 @@ export default async function AdminOrdersPage() {
                 className="flex items-center gap-4 px-4 py-3 hover:bg-muted/50"
               >
                 <div className="min-w-0 flex-1">
-                  <p className="font-mono text-sm font-medium">{o.orderNumber}</p>
+                  <p className="font-mono text-sm font-medium">
+                    {o.orderNumber}
+                  </p>
                   <p className="truncate text-xs text-muted-foreground">
                     {o.customerName} · {o.customerPhone}
                   </p>

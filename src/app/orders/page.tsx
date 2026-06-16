@@ -40,7 +40,9 @@ export default async function OrdersPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Badge variant="secondary">{t(`status.${order.status}`)}</Badge>
+                  <Badge variant="secondary">
+                    {t(`status.${order.status}`)}
+                  </Badge>
                   <span className="text-sm font-semibold">
                     {formatBDT(order.total, { locale })}
                   </span>

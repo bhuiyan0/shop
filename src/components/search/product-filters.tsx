@@ -64,7 +64,9 @@ export function ProductFilters({
         <select
           className={selectCls}
           value={sp.get("sort") ?? "new"}
-          onChange={(e) => update({ sort: e.target.value === "new" ? "" : e.target.value })}
+          onChange={(e) =>
+            update({ sort: e.target.value === "new" ? "" : e.target.value })
+          }
         >
           <option value="new">{t("sortNew")}</option>
           <option value="price_asc">{t("sortPriceAsc")}</option>
@@ -73,7 +75,9 @@ export function ProductFilters({
       </div>
 
       <div className="space-y-1">
-        <Label className="text-xs text-muted-foreground">{t("priceRange")} (৳)</Label>
+        <Label className="text-xs text-muted-foreground">
+          {t("priceRange")} (৳)
+        </Label>
         <div className="flex items-center gap-1">
           <Input
             type="number"
