@@ -1,25 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { getLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/components/layout/header";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "BDShop — Online Shopping in Bangladesh",
+  title: "BDShop — Online Grocery in Bangladesh",
   description:
-    "Shop electronics, fashion, and home goods with Cash on Delivery, bKash, Nagad and card payments across Bangladesh.",
+    "Fresh groceries and daily essentials — rice, oil, spices, snacks and more — with Cash on Delivery, bKash and Nagad across Bangladesh.",
 };
 
 export default async function RootLayout({
@@ -30,7 +25,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>

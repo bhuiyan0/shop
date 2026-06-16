@@ -3,8 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/db";
+import { getCurrentUser } from "@/lib/dal";
+import { hasPurchased } from "@/lib/review-actions";
 import type { Locale } from "@/i18n/routing";
 import { ProductPurchase } from "@/components/product/product-purchase";
+import { ReviewForm } from "@/components/product/review-form";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
@@ -38,6 +41,18 @@ export default async function ProductPage({
     reviewCount > 0
       ? product.reviews.reduce((s, r) => s + r.rating, 0) / reviewCount
       : 0;
+
+  // Review eligibility for the current user.
+  const user = await getCurrentUser();
+  const myReview = user
+    ? await prisma.review.findUnique({
+        where: { productId_userId: { productId: product.id, userId: user.id } },
+        select: { rating: true, comment: true },
+      })
+    : null;
+  const canReview = user
+    ? myReview !== null || (await hasPurchased(user.id, product.id))
+    : false;
 
   return (
     <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
@@ -142,6 +157,24 @@ export default async function ProductPage({
             ))}
           </ul>
         )}
+
+        <div className="mt-6">
+          {!user ? (
+            <p className="text-sm text-muted-foreground">
+              <Link href="/login" className="font-medium underline">
+                {t("loginToReview")}
+              </Link>
+            </p>
+          ) : canReview ? (
+            <ReviewForm
+              productId={product.id}
+              slug={product.slug}
+              initial={myReview}
+            />
+          ) : (
+            <p className="text-sm text-muted-foreground">{t("onlyBuyers")}</p>
+          )}
+        </div>
       </section>
     </main>
   );

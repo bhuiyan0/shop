@@ -140,3 +140,35 @@ export function cartCount(cart: CartWithItems | null): number {
   if (!cart) return 0;
   return cart.items.reduce((sum, i) => sum + i.quantity, 0);
 }
+
+// Plain, serializable line shape for client cart UIs (drawer + full page).
+export interface CartLineView {
+  id: string;
+  slug: string;
+  name: string;
+  variantName: string;
+  unitPrice: number;
+  quantity: number;
+  stock: number;
+  image: { url: string; alt: string } | null;
+}
+
+export function toCartLineViews(
+  cart: CartWithItems | null,
+  isBn: boolean,
+): CartLineView[] {
+  return (cart?.items ?? []).map((line) => {
+    const product = line.variant.product;
+    const img = product.images[0];
+    return {
+      id: line.id,
+      slug: product.slug,
+      name: isBn ? product.nameBn : product.nameEn,
+      variantName: isBn ? line.variant.nameBn : line.variant.nameEn,
+      unitPrice: line.variant.price,
+      quantity: line.quantity,
+      stock: line.variant.stock,
+      image: img ? { url: img.url, alt: img.alt ?? product.nameEn } : null,
+    };
+  });
+}
